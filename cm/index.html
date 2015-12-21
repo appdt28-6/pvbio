@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Acceso a panel de control</title>
+	
+	<!-- Stylesheets -->
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet'>
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Optimize for mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+</head>
+<body>
+
+	<!-- TOP BAR -->
+	<div id="top-bar">
+		
+		<div class="page-full-width">
+		
+			
+		</div> <!-- end full-width -->	
+	
+	</div> <!-- end top-bar -->
+	
+	
+	
+	<!-- HEADER -->
+	<div id="header">
+		
+		<div class="page-full-width cf">
+	
+			<div id="login-intro" class="fl">
+			
+				<h1>Panel de Control</h1>
+				<h5>Introduce los datos</h5>
+			
+			</div> <!-- login-intro -->
+			
+			<!-- Change this image to your own company's logo -->
+			<!-- The logo will automatically be resized to 39px height. -->
+			<a href="#" id="company-branding" class="fr"><img src="images/logo.png" alt="AppCompra" /></a>
+			
+		</div> <!-- end full-width -->	
+
+	</div> <!-- end header -->
+	
+	
+	
+	<!-- MAIN CONTENT -->
+	<div id="content">
+	
+		<form action="comprobar.php" method="POST" id="login-form">
+		
+			<fieldset>
+
+				<p>
+					<label for="login-username">Usuario</label>
+					<input type="text" name="login" id="login-username" class="round full-width-input" autofocus />
+				</p>
+
+				<p>
+					<label for="login-password">Contraseña</label>
+					<input type="password" name="password" id="login-password" class="round full-width-input" />
+				</p>
+				
+				<p><a href="#">¿Olvidaste tú contraseña?</a>.</p>
+				
+				<!--<a href="dashboard.html" class="button round blue image-right ic-right-arrow">LOG IN</a>-->
+                <input type="submit" value="Entrar" class="button round blue image-right ic-right-arrow">
+
+			</fieldset>
+
+			<br/><div class="information-box round">Introduce tu Usuario y Contraseña</div>
+
+		</form>
+		
+	</div> <!-- end content -->
+	
+	
+	
+	<!-- FOOTER -->
+	<div id="footer">
+
+		<!--<p>&copy; Copyright 2012 <a href="#">BlueHosting, LLC</a>. All rights reserved.</p>
+		<p><strong>SimpleAdmin</strong> theme by <a href="http://www.adipurdila.com">Adi Purdila</a></p>-->
+	
+	</div> <!-- end footer -->
+
+</body>
+</html>
