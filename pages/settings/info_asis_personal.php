@@ -201,8 +201,7 @@ date_default_timezone_set('mexico/general');
                                   }
                                         mysql_free_result($result);
                                     mysql_close($link);
-
-                                        ?>
+									   ?>
                                         
                                     </tbody>
                                 </table>

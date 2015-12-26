@@ -142,7 +142,7 @@ $e=$_SESSION['inicia'];
                                     <a href="socios.php">Socios</a>
                                 </li>
                                 <li>
-                                    <a href="asistencias.php">Asistencia</a>
+                                    <a href="asistencia.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -181,150 +181,66 @@ $e=$_SESSION['inicia'];
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
+        
+        
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Información</h1>
+                <h1 class="page-header">Listado de Socios</h1>
+                <p><a href="newsocio.php"><i class="fa fa-plus"></i> Nuevo</a></p>
+                
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-money fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-
-                                    <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
-                                    mysql_close($link);
-
-                                    ?>
-                                    <div>Turno Mañana</div>
-                                </div>
-                            </div>
+                            Socios
                         </div>
-                        <a href="productsold.php">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver detalles</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                 <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                   $query = "SELECT SUM(cantidad) as total FROM pagos where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Id Socio</th>
+                                            <th>Nombre</th>
+                                            <th>Telefono</th>
+                                            <th>Membresia</th>
+                                            <th>Detalles</th>
+                                            <th>Modificar</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include ('../connect.php');
+                                        
+                                         $query = "SELECT socios.id_socio,concat(socios.nombre,' ',socios.ap,' ', socios.am) as nombre,socios.telefono,socios.membresia FROM pvbiogym.socios";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
                                   {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
+                                   echo "<tr class=\"odd gradeX\">";
+                                            echo "<td>".$row['id_socio']."</td>";
+                                            echo "<td>".$row['nombre']."</td>";
+                                            echo "<td>".$row['telefono']."</td>";
+                                            echo "<td>".$row['membresia']."</td>";
+											echo "<td class=\"center\"><a href=\"historialsocio.php?id=".$row['id_socio']."\">Detalles</a></td>";
+											echo "<td class=\"center\"><a href=\"editsocio.php?id=".$row['id_socio']."\">Modificar</a></td>";
+											echo "<td class=\"center\"><a href=\"deletesocio.php?id=".$row['id_socio']."\">Eliminar</a></td>";
+											
+                                        echo "</tr>";
+                                  }
+                                        mysql_free_result($result);
                                     mysql_close($link);
 
-                                    ?>
-                                    <div>Pagos Mañana</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Detalles</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>-->
-                        </a>
-                    </div>
-                </div>
-               <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
-                                    mysql_close($link);
-
-                                    ?>
-                                    <div>Turno Tarde</div>
-                                </div>
-                            </div>
-                        </div>
-                       <!-- <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>-->
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                   $query = "SELECT SUM(cantidad) as total FROM pagos where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
-                                    mysql_close($link);
-
-                                    ?>
-                                    <div>Pagos Tarde</div>
-                                </div>
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+      </div>
                             </div>
                         </div>
                         <!--<a href="#">

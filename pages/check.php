@@ -11,7 +11,7 @@ else{
 $query="SELECT * FROM usuarios WHERE username='$login' and password ='$password'";
 $link=mysql_connect($server,$dbuser,$dbpass);
 $result=mysql_db_query($database,$query,$link);
-	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////
 	if(!mysql_num_rows($result))
 	{
 	header("location:index.html?**usuario-no-encontrado**");//loger no encontrado

@@ -81,7 +81,7 @@
                         <a href="ventas.php"><i class="fa fa-fw fa-usd"></i>Ventas</a>
                     </li>
                     <li>
-                        <a href="productos.php"><i class="fa fa-fw fa-list-alt"></i> Productos</a>
+                        <a href="productos.php"><i class="fa fa-fw fa-list-alt"></i> Producto</a>
                     </li>
                 </ul>
             </div>
