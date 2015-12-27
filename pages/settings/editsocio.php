@@ -6,8 +6,10 @@ header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
 } /* Y cerramos el else */ 
-
+echo "</div>";
+date_default_timezone_set('mexico/general');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,14 +29,14 @@ $e=$_SESSION['inicia'];
     <!-- MetisMenu CSS -->
     <link href="../../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Timeline CSS -->
-    <link href="../../dist/css/timeline.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="../../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="../../bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -47,10 +49,8 @@ $e=$_SESSION['inicia'];
     <![endif]-->
 
 </head>
-
 <body>
-
-    <div id="wrapper">
+<div id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -61,12 +61,12 @@ $e=$_SESSION['inicia'];
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Biogym-Panel de administrador</a>
+                <a class="navbar-brand" href="index.html">Biogym-Panel de control</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
+                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -77,7 +77,7 @@ $e=$_SESSION['inicia'];
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -86,7 +86,7 @@ $e=$_SESSION['inicia'];
             </ul>
             <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
+          <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         
@@ -181,170 +181,82 @@ $e=$_SESSION['inicia'];
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Información</h1>
+                    <h1 class="page-header">Registro del Personal</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
+                            Datos del socio
+                        </div>
+                        <div class="panel-body">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-money fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-
-                                    <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
+                                <div class="col-lg-6">
+                                <?php
+									   include('connect.php');
+									 $id=$_GET['id'];
+                                     $query = "SELECT * FROM pvbiogym.socios where id_socio ='$id' ";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
+                                  { ?>
+                                    <form role="form" action="update_socio.php?id=<?php echo $row['id_socio']; ?>" method="post">                                   
+                                       <div class="form-group">
+                                       <label>Nombre</label>
+                                       <input name="nombre" class="form-control" value="<?php echo $row['nombre']; ?>">
+                                      </div>
+                                      
+                                      <div class="form-group">
+                                       <label>Apellido Paterno</label>
+                                       <input name="ap" class="form-control" value="<?php echo $row['ap']; ?>">
+                                      </div>
+                                      
+                                      <div class="form-group">	
+                                       <label>Apellido Materno</label>
+                                       <input name="am" class="form-control" value="<?php echo $row['am']; ?>">
+                                      </div>
+									   
+									    <div class=\"form-group\">
+                                         <label>telefono</label>
+                                         <input name="telefono" class="form-control" value="<?php echo $row['telefono']; ?>">
+                                       </div>
+									    <div class="form-group">
+                                         <label>Membresia</label>
+                                         <input name="membresia" class="form-control" value="<?php echo $row['membresia']; ?>">
+                                       </div>
+                                        
+                                      
+                                        <button type="submit" class="btn btn-default">Guardar</button>
+                                        <button type="reset" class="btn btn-default">Borrar todo</button>
+                                    </form>
+                                      <?php } 
+								    mysql_free_result($result);
                                     mysql_close($link);
-
-                                    ?>
-                                    <div>Turno Mañana</div>
+								  ?>       
                                 </div>
+                                
                             </div>
+                            <!-- /.row (nested) -->
                         </div>
-                        <a href="productsold.php">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver detalles</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
+                        <!-- /.panel-body -->
                     </div>
+                    <!-- /.panel -->
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                 <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                   $query = "SELECT SUM(cantidad) as total FROM pagos where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
-                                    mysql_close($link);
-
-                                    ?>
-                                    <div>Pagos Mañana</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Detalles</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>-->
-                        </a>
-                    </div>
-                </div>
-               <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
-                                    mysql_close($link);
-
-                                    ?>
-                                    <div>Turno Tarde</div>
-                                </div>
-                            </div>
-                        </div>
-                       <!-- <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>-->
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <?php 
-                                    include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                   $query = "SELECT SUM(cantidad) as total FROM pagos where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                    echo "<div class=\"huge\">",$row['total'],"</div>"; 
-                                    }
-                                     mysql_free_result($result);
-                                    mysql_close($link);
-
-                                    ?>
-                                    <div>Pagos Tarde</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>-->
-                    </div>
-                </div>
+                <!-- /.col-lg-12 -->
             </div>
-           
+            <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
+     <!-- jQuery -->
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -353,14 +265,21 @@ $e=$_SESSION['inicia'];
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="../../bower_components/raphael/raphael-min.js"></script>
-    <script src="../../bower_components/morrisjs/morris.min.js"></script>
-    <script src=../"../js/morris-data.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dist/js/sb-admin-2.js"></script>
 
-</body>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
 
+</body>
 </html>
