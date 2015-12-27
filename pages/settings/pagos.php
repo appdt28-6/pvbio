@@ -209,9 +209,12 @@ $e=$_SESSION['inicia'];
                                     </thead>
                                     <tbody>
                                         <?php 
+										date_default_timezone_set('mexico/general');
+                                    $fch1=date("Y-m-d")." 00:00:00";
+                                    $fch2=date("Y-m-d")." 23:59:59";
 					   include 'database.php';
 					   $pdo = Database::connect();
-					   $sql = 'SELECT * FROM pagos where id_usuario = 2 ';
+					   $sql = "SELECT * FROM pagos where fecha BETWEEN '$fch1' AND '$fch2' ";
 	 				   foreach ($pdo->query($sql) as $row) {
 						   		echo '<tr>';
 							   	echo '<td>'. $row['concepto'] . '</td>';
