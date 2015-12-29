@@ -142,7 +142,7 @@ $e=$_SESSION['inicia'];
                                     <a href="socios.php">Socios</a>
                                 </li>
                                 <li>
-                                    <a href="asistencia.php">Asistencia</a>
+                                    <a href="asistencias.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

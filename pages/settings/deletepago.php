@@ -144,7 +144,7 @@ date_default_timezone_set('mexico/general');
                                     <a href="socios.php">Socios</a>
                                 </li>
                                 <li>
-                                    <a href="asistencia.php">Asistencia</a>
+                                    <a href="asistencias.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -187,8 +187,8 @@ date_default_timezone_set('mexico/general');
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header"> Personal</h1>
-                 <p><a href="newsocio.php"><i class="fa fa-plus"></i> Nuevo</a></p>
+                <h1 class="page-header"> Pago</h1>
+                 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

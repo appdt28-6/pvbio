@@ -221,14 +221,43 @@ date_default_timezone_set('mexico/general');
                                        <input name="am" class="form-control" value="<?php echo $row['am']; ?>">
                                       </div>
 									   
+                                        <div class="form-group">	
+                                       <label>Fecha de Nacimiento</label>
+                                       <input name="fechan" class="form-control" value="<?php echo $row['fechan']; ?>">
+                                      </div>
+                                      
+                                       <div class="form-group">	
+                                       <label>Telefono</label>
+                                       <input name="telefono" class="form-control" value="<?php echo $row['telefono']; ?>">
+                                      </div>
+                                       
+                                       
 									    <div class=\"form-group\">
-                                         <label>telefono</label>
-                                         <input name="telefono" class="form-control" value="<?php echo $row['telefono']; ?>">
+                                         <label>Email</label>
+                                         <input name="email" class="form-control" value="<?php echo $row['email']; ?>">
                                        </div>
-									    <div class="form-group">
+                                       
+                                        <div class="form-group">	
+                                       <label>Dirección</label>
+                                       <input name="direccion" class="form-control" value="<?php echo $row['direccion']; ?>">
+                                      </div>
+                                       
+                                        <div class="form-group">	
+                                       <label>Calle y Número</label>
+                                       <input name="calle" class="form-control" value="<?php echo $row['calle']; ?>">
+                                      </div>
+                                      
+                                         <div class="form-group">
                                          <label>Membresia</label>
                                          <input name="membresia" class="form-control" value="<?php echo $row['membresia']; ?>">
                                        </div>
+                                       
+                                        <div class="form-group">	
+                                       <label>Facebook</label>
+                                       <input name="facebook" class="form-control" value="<?php echo $row['facebook']; ?>">
+                                      </div>
+                                      
+                                       
                                         
                                       
                                         <button type="submit" class="btn btn-default">Guardar</button>

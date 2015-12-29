@@ -144,7 +144,7 @@ date_default_timezone_set('mexico/general');
                                     <a href="socios.php">Socios</a>
                                 </li>
                                 <li>
-                                    <a href="asistencia.php">Asistencia</a>
+                                    <a href="asistencias.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -188,7 +188,7 @@ date_default_timezone_set('mexico/general');
             <div class="row">
                 <div class="col-lg-12">
                 <h1 class="page-header"> Personal</h1>
-                 <p><a href="newsocio.php"><i class="fa fa-plus"></i> Nuevo</a></p>
+                 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -197,7 +197,7 @@ date_default_timezone_set('mexico/general');
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Conceptos Biogym
+                            Personal Biogym
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -208,9 +208,9 @@ date_default_timezone_set('mexico/general');
                                         $sql = mysql_query("DELETE FROM pvbiogym.usuarios WHERE idUsuario='$id'");
 if(! $sql )
 {
-  die('<div class="alert alert-danger">No pudimos eliminar al socio<a class="alert-link" href="#"></a></div>' . mysql_error());
+  die('<div class="alert alert-danger">No pudimos dar de baja al personal<a class="alert-link" href="#"></a></div>' . mysql_error());
 }
-echo "<div class=\"alert alert-success\">Socio Eliminado<a class=\"alert-link\" href=\"personal.php\"> Salir</a></div>";
+echo "<div class=\"alert alert-success\">Personal dado de baja<a class=\"alert-link\" href=\"personal.php\"> Salir</a></div>";
 mysql_close();
                                         ?>
                             </div>

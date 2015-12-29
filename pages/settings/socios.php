@@ -142,7 +142,7 @@ $e=$_SESSION['inicia'];
                                     <a href="socios.php">Socios</a>
                                 </li>
                                 <li>
-                                    <a href="asistencia.php">Asistencia</a>
+                                    <a href="asistencias.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -189,6 +189,10 @@ $e=$_SESSION['inicia'];
                 <h1 class="page-header">Listado de Socios</h1>
                 <p><a href="newsocio.php"><i class="fa fa-plus"></i> Nuevo</a></p>
                 
+                <p align="right"> <a href="../settings/tutorial/pdfsocios.php" target="_blank" class="btn btn-primary">Imprimir</a>
+               
+                <a href="xlssocios.php" class="btn btn-success">Excel</a>
+                </p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -227,7 +231,7 @@ $e=$_SESSION['inicia'];
                                             echo "<td>".$row['nombre']."</td>";
                                             echo "<td>".$row['telefono']."</td>";
                                             echo "<td>".$row['membresia']."</td>";
-											echo "<td class=\"center\"><a href=\"historialsocio.php?id=".$row['id_socio']."\">Detalles</a></td>";
+											echo "<td class=\"center\"><a href=\"detallessocios.php?id=".$row['id_socio']."\">Detalles</a></td>";
 											echo "<td class=\"center\"><a href=\"editsocio.php?id=".$row['id_socio']."\">Modificar</a></td>";
 											echo "<td class=\"center\"><a href=\"deletesocio.php?id=".$row['id_socio']."\">Eliminar</a></td>";
 											
@@ -275,7 +279,15 @@ $e=$_SESSION['inicia'];
     <script src=../"../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../../dist/js/sb-admin-2.js"></script>
+    
+</script>
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
 
 </body>
 

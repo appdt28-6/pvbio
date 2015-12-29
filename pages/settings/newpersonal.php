@@ -142,7 +142,7 @@ date_default_timezone_set('mexico/general');
                                     <a href="socios.php">Socios</a>
                                 </li>
                                 <li>
-                                    <a href="asistencia.php">Asistencia</a>
+                                    <a href="asistencias.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -184,7 +184,7 @@ date_default_timezone_set('mexico/general');
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro del Socio</h1>
+                    <h1 class="page-header">Registro del Personal</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -212,7 +212,7 @@ date_default_timezone_set('mexico/general');
 									    
                                         <div class="form-group">
                                          <label>Tipo de Usuario</label>
-                                          <input name="tipoUsuario" class="form-control" >
+                                          <input value="Personal" name="tipoUsuario" class="form-control" >
                                        </div>
                                                
                                         <button type="submit" class="btn btn-default">Guardar</button>
