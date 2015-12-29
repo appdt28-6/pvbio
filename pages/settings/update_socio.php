@@ -60,7 +60,7 @@ date_default_timezone_set('mexico/general');
                 <div class="login-panel panel panel-default">
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Datos de acceso</h3>
+                        <h3 class="panel-title">Datos del Socio</h3>
                     </div>
                     <div class="panel-body">
                      <form action="#" method="POST" >
@@ -71,11 +71,17 @@ date_default_timezone_set('mexico/general');
 						$nombre=$_POST['nombre'];
 						$ap=$_POST['ap'];
 						$am=$_POST['am'];
+						$fechan=$_POST['fechan'];
+						$email=$_POST['email'];
 						$telefono=$_POST['telefono'];
+						$direccion=$_POST['direccion'];
+						$calle=$_POST['calle'];
 						$membresia=$_POST['membresia'];
+						$facebook=$_POST['facebook'];
+						
 				
 						
-					$sql = mysql_query("UPDATE pvbiogym.socios SET nombre='$nombre',ap='$ap',am='$am',telefono='$telefono', membresia='$membresia' where id_socio=$id");
+					$sql = mysql_query("UPDATE pvbiogym.socios SET nombre='$nombre',ap='$ap',am='$am',fechan='$fechan',      email='$email',telefono='$telefono', direccion='$direccion', calle='$calle', membresia='$membresia', facebook='$facebook'  where id_socio=$id");
 					if(!$sql){
 										 
 						echo "<div class=\"alert alert-danger\">";

@@ -91,7 +91,7 @@ $e=$_SESSION['inicia'];
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="settings.php"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
+                            <a href="index.php"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-list-alt fa-fw"></i> Productos<span class="fa arrow"></span></a>
@@ -113,21 +113,41 @@ $e=$_SESSION['inicia'];
                                     <a href="infocaja.php">Caja al dia</a>
                                 </li>
                             </ul>
+                            </li>
                             <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Asistencia del Personal<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-eject fa-fw"></i>Cancelaciones<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="pagos.php">Pagos/Salidas</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                            <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i>Personal Biogym<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            <li>
+                                    <a href="personal.php">Personal</a>
+                                </li>
                                 <li>
                                     <a href="info_asis_personal.php">Asistencia</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="asistencias.php"><i class="fa fa-users fa-fw"></i> Asistencia socios</a>
-                            
+                       <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i>Socios Biogym<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            <li>
+                                    <a href="socios.php">Socios</a>
+                                </li>
+                                <li>
+                                    <a href="asistencias.php">Asistencia</a>
+                                </li>
+                            </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                       <!-- <li>
                              <a href="#"><i class="fa fa-list-alt fa-fw"></i>Programación<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -137,17 +157,24 @@ $e=$_SESSION['inicia'];
                                     <a href="programacionvariables.php">Variables</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
+                        </li>-->
+                        <!--<li>
                              <a href="egresos.php"><i class="fa fa-list-alt fa-fw"></i>Egresos<span class="fa arrow"></span></a>
+                           
+                        </li>-->
+                        <li>
+                             <a href="/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-arrow-circle-left"></i>Recuperar Ticket</a>
                             <!-- /.nav-second-level -->
                         </li>
-                         <li>
-                             <a href="pago.php"><i class="fa fa-list-alt fa-fw"></i>Generar pago<span class="fa arrow"></span></a>
+                        
+                        <li>
+                             <a href="pagos.php" target="_blank"><i class="fa fa-list-alt fa-fw"></i>Generar Pagos</a>
                             <!-- /.nav-second-level -->
                         </li>
-                         
+                          <li>
+                             <a href="clases.php"><i class="fa fa-warning fa-fw"></i>Activar Clases</a>
+                            <!-- /.nav-second-level -->
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

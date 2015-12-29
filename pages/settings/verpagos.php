@@ -88,7 +88,7 @@ date_default_timezone_set('mexico/general');
             </ul>
             <!-- /.navbar-top-links -->
 
-           <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         

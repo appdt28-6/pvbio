@@ -86,7 +86,7 @@ date_default_timezone_set('mexico/general');
             </ul>
             <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
+          <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         
@@ -184,7 +184,7 @@ date_default_timezone_set('mexico/general');
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de  Productos</h1>
+                    <h1 class="page-header">Registro del Personal</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -193,34 +193,82 @@ date_default_timezone_set('mexico/general');
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de producto
+                            Datos del socio
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action="agree_product.php" method="post">
-                                   
+                                <?php
+									   include('connect.php');
+									 $id=$_GET['id'];
+                                     $query = "SELECT * FROM pvbiogym.socios where id_socio ='$id' ";
+                                  $result = mysql_query($query);
+                                  while($row = mysql_fetch_array($result))
+                                  { ?>
+              
+                                    <form role="form" method="post">  
+                                                                     
+                             
                                        <div class="form-group">
-                                       <label>Codigo de barras</label>
-                                       <input name="barcode" class="form-control">
+                                       <label>Nombre</label>
+                                       <input name="nombre" class="form-control" value="<?php echo $row['nombre']; ?>">
                                       </div>
-									   
+                                      
+                                      <div class="form-group">
+                                       <label>Apellido Paterno</label>
+                                       <input name="ap" class="form-control" value="<?php echo $row['ap']; ?>">
+                                      </div>
+                                     
+                                      <div class="form-group">	
+                                       <label>Apellido Materno</label>
+                                       <input name="am" class="form-control" value="<?php echo $row['am']; ?>">
+                                      </div>
+									  
+                                        <div class="form-group">	
+                                       <label>Fecha de Nacimiento</label>
+                                       <input name="fechan" class="form-control" value="<?php echo $row['fechan']; ?>">
+                                      </div>
+                              
+                                       <div class="form-group">	
+                                       <label>Telefono</label>
+                                       <input name="telefono" class="form-control" value="<?php echo $row['telefono']; ?>">
+                                      </div>
+                                       
+                                     
 									    <div class=\"form-group\">
-                                         <label>Producto</label>
-                                         <input name="producto" class="form-control" >
+                                         <label>Email</label>
+                                         <input name="email" class="form-control" value="<?php echo $row['email']; ?>">
                                        </div>
-									    <div class="form-group">
-                                         <label>Precio</label>
-                                         <input name="precio" class="form-control" >
+                                     
+                                        <div class="form-group">	
+                                       <label>Dirección</label>
+                                   <input name="direccion" class="form-control" value="<?php echo $row['direccion']; ?>">
+                                   
+                                      </div>
+                                   
+                                        <div class="form-group">	
+                                       <label>Calle y Número</label>
+                                       <input name="calle" class="form-control" value="<?php echo $row['calle']; ?>">
+                                      </div>
+                                      
+                                         <div class="form-group">
+                                         <label>Membresia</label>
+                                         <input name="membresia" class="form-control" value="<?php echo $row['membresia']; ?>">
                                        </div>
-                                        <div class="form-group">
-                                         <label>Stock</label>
-                                          <input name="stock" class="form-control" >
-                                       </div>
-                                               
-                                        <button type="submit" class="btn btn-default">Guardar</button>
-                                        <button type="reset" class="btn btn-default">Borrar todo</button>
+                                       
+                                       
+                                        <div class="form-group">	
+                                       <label>Facebook</label>
+                                       <input name="facebook" class="form-control" value="<?php echo $row['facebook']; ?>">
+                                      </div>
+                                     
+                                        <a href="newassistance.php" class="tn btn-lg btn-warning btn-block">Salir</a>
+                                     
                                     </form>
+                                      <?php } 
+								    mysql_free_result($result);
+                                    mysql_close($link);
+								  ?>       
                                 </div>
                                 
                             </div>
