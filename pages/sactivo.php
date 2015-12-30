@@ -152,6 +152,9 @@ date_default_timezone_set('mexico/general');
             <div class="row">
                 <div class="col-lg-12">
                 <h1 class="page-header">Socios Activos</h1>
+                 <p align="right"> <a href="../settings/tutorial/pdfsocios.php" target="_blank" class="btn btn-primary">Imprimir</a>
+               
+                <a href="xlsactivos.php" class="btn btn-success">Excel</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -160,7 +163,7 @@ date_default_timezone_set('mexico/general');
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Socios Activos <button onclick="myFunction()">Print this page</button>
+                            Socios Activos
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

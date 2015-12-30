@@ -152,6 +152,9 @@ date_default_timezone_set('mexico/general');
             <div class="row">
                 <div class="col-lg-12">
                 <h1 class="page-header">Socios Inactivos</h1>
+                 <p align="right"> <a href="../settings/tutorial/pdfsocios.php" target="_blank" class="btn btn-primary">Imprimir</a>
+               
+                <a href="xlsinactivos.php" class="btn btn-success">Excel</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
