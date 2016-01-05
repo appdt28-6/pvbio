@@ -184,7 +184,7 @@ $e=$_SESSION['inicia'];
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                             <a href="/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-list-alt fa-fw"></i>Recuperar Ticket<span class="fa arrow"></span></a>
+                             <a href="/pvbio/pages/settings/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-list-alt fa-fw"></i>Recuperar Ticket<span class="fa arrow"></span></a>
                             <!-- /.nav-second-level -->
                         </li>
                         

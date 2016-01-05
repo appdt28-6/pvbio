@@ -166,7 +166,7 @@ $mes=date("m");
                            
                         </li>-->
                         <li>
-                             <a href="/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-arrow-circle-left"></i>Recuperar Ticket</a>
+                             <a href="/pvbio/pages/settings/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-arrow-circle-left"></i>Recuperar Ticket</a>
                             <!-- /.nav-second-level -->
                         </li>
                         
