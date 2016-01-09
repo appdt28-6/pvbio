@@ -11,7 +11,6 @@ echo "</div>";
 date_default_timezone_set('mexico/general');
 $mes=date("m");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,6 +52,7 @@ $mes=date("m");
 </head>
 
 <body>
+
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -64,12 +64,12 @@ $mes=date("m");
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Biogym-Panel de control</a>
+                <a class="navbar-brand" href="index.html">Biogym-Panel de administrador</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                
+                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -89,7 +89,7 @@ $mes=date("m");
             </ul>
             <!-- /.navbar-top-links -->
 
-             <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         
@@ -166,13 +166,19 @@ $mes=date("m");
                            
                         </li>-->
                         <li>
-                             <a href="/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-arrow-circle-left"></i>Recuperar Ticket</a>
+                             <a href="/pvbio/pages/settings/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-arrow-circle-left"></i>Recuperar Ticket</a>
                             <!-- /.nav-second-level -->
                         </li>
-                        
                         <li>
-                             <a href="pagos.php" target="_blank"><i class="fa fa-list-alt fa-fw"></i>Generar Pagos</a>
+                            <a href="#"><i class="fa fa-list-alt fa-fw"></i>Generar Pagos<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                        <li>
+                             <a href="pagos.php">Generar Pagos</a>
                             <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                        <a href="pagosextra.php">Pago Extra/Salida Extra </a>
+                        </ul>
                         </li>
                           <li>
                              <a href="clases.php"><i class="fa fa-warning fa-fw"></i>Activar Clases</a>

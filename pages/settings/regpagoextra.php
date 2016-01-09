@@ -5,12 +5,50 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-
 } /* Y cerramos el else */ 
-echo "</div>";
-date_default_timezone_set('mexico/general');
-$mes=date("m");
-$gasto=$_GET['id'];
+
+?>
+<?php 
+	
+	require 'database.php';
+
+	if ( !empty($_POST)) {
+		// keep track validation errors
+		$conceptoError = null;
+		$importeError = null;
+		$tipoError = null;
+		$descripcionError = null;
+		// keep track post values
+		$concepto = $_POST['concepto'];
+		$importe = $_POST['importe'];
+		$tipo= $_POST['tipo'];
+		$descripcion=$_POST['descripcion'];
+		
+		
+		// validate input
+		$valid = true;
+		if (empty($concepto)) {
+			$conceptoError = 'Please enter Concepto';
+			$valid = false;
+		}
+		
+		if (empty($importe)) {
+			$importeError = 'Please enter Importe';
+			$valid = false;
+		}
+		
+		// insert data
+		if ($valid) {
+			$pdo = Database::connect();
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql = "INSERT INTO pagosextras (concepto,cantidad,tipo,descripcion) values(?,?,?,?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($concepto,$importe,$tipo,$descripcion));
+			
+			Database::disconnect();
+			header("Location: pagosextra.php");
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -196,100 +234,102 @@ $gasto=$_GET['id'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Programacion de Gastos Fijos</h1>
+                    <h1 class="page-header">Pagos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           Listado de gastos
-                        </div>
+            <div class="panel panel-default">
+                       
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                           <form action="#" method="POST" >
-                            <fieldset>
-                       <?php 
-                        include('connect.php');
-						$gasto=$_GET['id'];
-						$fecha=$_POST['fecha'];
-						$concept=$_POST['concept'];
-						$importe=$_POST['importe'];
-						$pago=$_POST['pago'];
-						
-					$sql = mysql_query("UPDATE gastos_fijos SET fecha='$fecha',concepto='$concept',importe='$importe',formapago='$pago' where id_gasto='$gasto'");
-					if(!$sql){
-										 
-						echo "<div class=\"alert alert-danger\">";
-                        echo "Tenemos un problema con tu solicitud<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}else{
-						
-						echo "<div class=\"alert alert-success\">";
-                        echo "Configuracion guardada con exito<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}
-							?> 
-                                <!--<div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Recordar
-                                    </label>
-                                </div>-->
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="programacionfijos.php" class="tn btn-lg btn-warning btn-block">Salir</a>
-                               
-                                
-                            </fieldset>
-                        </form>
-                            </div>
-                            <!-- /.table-responsive -->
+                           
+                           <form class="form-horizontal" action="regpagoextra.php" method="post">
+                           
+                           
+                           
+					  <div class="control-group <?php echo !empty($conceptoError)?'error':'';?>">
+					    <label class="control-label">Concepto</label>
+					    <div class="controls">
+					      	<input name="concepto" type="text"  placeholder="Concepto" value="<?php echo !empty($concepto)?$concepto:'';?>">
+					      	<?php if (!empty($conceptoError)): ?>
+					      		<span class="help-inline"><?php echo $conceptoError;?></span>
+					      	<?php endif; ?>
+					    </div>
+					  </div>
+                      
+					  <div class="control-group <?php echo !empty($importeError)?'error':'';?>">
+					    <label class="control-label">Importe</label>
+					    <div class="controls">
+					      	<input name="importe" type="text" placeholder="Importe" value="<?php echo !empty($importe)?$importe:'';?>">
+					      	<?php if (!empty($importeError)): ?>
+					      		<span class="help-inline"><?php echo $importeError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+                      
+                      <div class="control-group <?php echo !empty($tipoError)?'error':'';?>">
+					    <label class="control-label">Tipo de Transacción</label>
+					    <div class="controls">
+                           <select name="tipo"> 
+								<option value="Ingreso">Ingreso</option> 
+								<option value="Egreso">Egreso</option>
+                                 <?php echo !empty($tipo)?$tipo:'';?>
+                                </select>
+                             
+
+					      	<?php if (!empty($tipoError)): ?>
+					      		<span class="help-inline"><?php echo $tipoError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+                      
+                      
+                      
+					  <div class="control-group <?php echo !empty($descripcionError)?'error':'';?>">
+					    <label class="control-label">Descripci&oacute;n</label>
+					    <div class="controls">
+					      	<input name="descripcion" type="text" placeholder="Descripci&oacute;n" value="<?php echo !empty($importe)?$importe:'';?>">
+					      	<?php if (!empty($descripcionError)): ?>
+					      		<span class="help-inline"><?php echo $descripcionError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+                      
+                      
+					 
+					  <div class="form-actions">
+						  <button type="submit" class="btn btn-success">Generar</button>
+						  <a class="btn btn-info" href="pagosextra.php">Regresar</a>
+						</div>
+					</form>
                            
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
            
-        </div>
+</div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="../../bower_components/raphael/raphael-min.js"></script>
+    <script src="../../bower_components/morrisjs/morris.min.js"></script>
+    <script src=../"../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../../dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
-<script>
-function myFunction() {
-    window.print();
-}
-</script>
 </body>
 
 </html>

@@ -5,12 +5,8 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-
 } /* Y cerramos el else */ 
-echo "</div>";
-date_default_timezone_set('mexico/general');
-$mes=date("m");
-$gasto=$_GET['id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -196,64 +192,47 @@ $gasto=$_GET['id'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Programacion de Gastos Fijos</h1>
+                    <h1 class="page-header">Clases Zumba</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           Listado de gastos
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                           <form action="#" method="POST" >
-                            <fieldset>
-                       <?php 
-                        include('connect.php');
-						$gasto=$_GET['id'];
-						$fecha=$_POST['fecha'];
-						$concept=$_POST['concept'];
-						$importe=$_POST['importe'];
-						$pago=$_POST['pago'];
-						
-					$sql = mysql_query("UPDATE gastos_fijos SET fecha='$fecha',concepto='$concept',importe='$importe',formapago='$pago' where id_gasto='$gasto'");
-					if(!$sql){
+             <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                 
+                <div class="login-panel panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Activaci&oacute;n de Clases</h3>
+                    </div>
+                    <div class="panel-body">
+             <fieldset>
+            <?php
+			
+		include ('connect.php');
+            $sql = mysql_query("UPDATE pvbiogym.lugareszumba SET status='0' where status='1'");
+		
+            if(!$sql){
 										 
-						echo "<div class=\"alert alert-danger\">";
+						echo "<div align=center class=\"alert alert-danger\">";
                         echo "Tenemos un problema con tu solicitud<a class=\"alert-link\" href=\"#\"></a>";
                         echo "</div>";
+						
+						
 					}else{
 						
-						echo "<div class=\"alert alert-success\">";
-                        echo "Configuracion guardada con exito<a class=\"alert-link\" href=\"#\"></a>";
+						echo "<div align=center class=\"alert alert-success\">";
+                        echo "Clases Activadas con exito<a class=\"alert-link\" href=\"#\"></a>";
                         echo "</div>";
 					}
-							?> 
-                                <!--<div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Recordar
-                                    </label>
-                                </div>-->
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="programacionfijos.php" class="tn btn-lg btn-warning btn-block">Salir</a>
-                               
+			?>
+			
+			</div>
+            <div class="well">
                                 
-                            </fieldset>
-                        </form>
+                               <a class="btn btn-default btn-lg btn-block" href="index.php">Salir</a>
                             </div>
-                            <!-- /.table-responsive -->
-                           
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
            
         </div>
         <!-- /#page-wrapper -->
@@ -261,35 +240,6 @@ $gasto=$_GET['id'];
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
-<script>
-function myFunction() {
-    window.print();
-}
-</script>
 </body>
 
 </html>

@@ -124,9 +124,9 @@
                                         include ('connect.php');
 
 										date_default_timezone_set('mexico/general');
-     									echo $dia=date('w');
+     									//echo $dia=date('w');
 
-										echo $hora=$_GET['hora'];
+										//echo $hora=$_GET['hora'];
 
 										//$dia=$_GET['dia'];
 
@@ -137,6 +137,9 @@
 								  $query = "SELECT * FROM `lugareszumba` WHERE dia='$dia' and hora='$hora' and status=0 ";
 
                                   $result = mysql_query($query);
+								  if($result==false)(
+									  $query.mysql_error());
+								  
 
                                   while($row = mysql_fetch_array($result))
 

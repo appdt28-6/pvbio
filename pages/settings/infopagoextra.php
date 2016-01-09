@@ -5,14 +5,10 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-
 } /* Y cerramos el else */ 
 echo "</div>";
 date_default_timezone_set('mexico/general');
-$mes=date("m");
-$gasto=$_GET['id'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -192,58 +188,67 @@ $gasto=$_GET['id'];
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
-        <div id="page-wrapper">
+        
+      <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Programacion de Gastos Fijos</h1>
+                <h1 class="page-header">Reporte Pagos Extra</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
+            <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           Listado de gastos
-                        </div>
+                        <div class="panel-heading">Reporte Pagos Extra</div>
+                     
+                        <form method="post" action="infopagoextrareport.php">
+                        <input type="date" name="fch1">
+                        <input type="date" name="fch2">
+                     
+						
+                        <input type="submit" value="Ver Reporte">
+                        </form>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                           <form action="#" method="POST" >
-                            <fieldset>
-                       <?php 
-                        include('connect.php');
-						$gasto=$_GET['id'];
-						$fecha=$_POST['fecha'];
-						$concept=$_POST['concept'];
-						$importe=$_POST['importe'];
-						$pago=$_POST['pago'];
-						
-					$sql = mysql_query("UPDATE gastos_fijos SET fecha='$fecha',concepto='$concept',importe='$importe',formapago='$pago' where id_gasto='$gasto'");
-					if(!$sql){
-										 
-						echo "<div class=\"alert alert-danger\">";
-                        echo "Tenemos un problema con tu solicitud<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}else{
-						
-						echo "<div class=\"alert alert-success\">";
-                        echo "Configuracion guardada con exito<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}
-							?> 
-                                <!--<div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Recordar
-                                    </label>
-                                </div>-->
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="programacionfijos.php" class="tn btn-lg btn-warning btn-block">Salir</a>
-                               
-                                
-                            </fieldset>
-                        </form>
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Concepto</th>
+                                            <th>Cantidad</th>
+                                            <th>Fecha</th>
+                                            <th>Tipo </th>
+                                            <th>Descripci&oacute;n</th>
+                                           <!-- <th>Retardo</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include ('../connect.php');
+                                        date_default_timezone_set('mexico/general');
+                                  		$fch1= date("Y-m-d")." 00:00:00";
+                                 		 $fch2= date("Y-m-d")." 23:59:59";
+                                         $query = "SELECT * FROM pagosextras where fecha BETWEEN '$fch1' AND '$fch2' ORDER BY 'tipo' ASC";
+                                  $result = mysql_query($query);
+                                  while($row = mysql_fetch_array($result))
+                                  {
+                                   echo "<tr class=\"odd gradeX\">";
+                                            echo "<td>".$row['id_pago']."</td>";
+                                            echo "<td>".$row['concepto']."</td>";
+											 echo "<td>".$row['cantidad']."</td>";
+											  echo "<td>".$row['fecha']."</td>";
+											  echo "<td>".$row['descripcion']."</td>";
+											  echo "<td>".$row['tipo']."</td>";
+                                   
+                                        echo "</tr>";
+                                  }
+                                        mysql_free_result($result);
+                                    mysql_close($link);
+									   ?>
+                                        
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- /.table-responsive -->
                            
@@ -252,8 +257,11 @@ $gasto=$_GET['id'];
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
+           
+                  
+               
+            <div class="well">
+                                
            
         </div>
         <!-- /#page-wrapper -->
@@ -285,11 +293,9 @@ $gasto=$_GET['id'];
         });
     });
     </script>
-<script>
-function myFunction() {
-    window.print();
-}
-</script>
+
 </body>
+
+</html>
 
 </html>

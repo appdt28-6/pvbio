@@ -10,85 +10,6 @@ header("content-disposition: attachment;filename=ventas".date("d-m-y").".xls");
 <TITLE>::. Exportacion de Datos .::</TITLE>
 </head>
 <body>
-
-Consolidado de datos.
-<TABLE BORDER=1 align="center" CELLPADDING=1 CELLSPACING=1>
- <thead>
- <tr>
- <th>Total Efectivo M</th>
- <th>Total Tarjeta M</th>
- <th>Total Efectivo T</th>
-  <th>Total Efectivo T</th>
- <th>Total Salida M</th>
-  <th>Total Salida T</th>
- </tr>
- </thead>
- <tbody>
-<tr>
-<td><?php include ('connect.php');
-		date_default_timezone_set('mexico/general');
-		$fch1=date("Y-m-d")." 00:00:00";
-		$fch2=date("Y-m-d")." 23:59:59";
-		
-		$query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='5' and tpago='0' and fecha BETWEEN '$fch1' AND '$fch2' ";
-	  $result = mysql_query($query);
-	  while($row = mysql_fetch_array($result))
-	  {
-	 $tem=$row['total'];
-	  }
-	  mysql_free_result($result);
-	  mysql_close($link); ?></td>
-<td><?php include ('connect.php');
-  $query2 = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='5' and tpago='1' and fecha BETWEEN '$fch1' AND '$fch2' ";
-	  $result2 = mysql_query($query2);
-	  while($row = mysql_fetch_array($result2))
-	  {
-	 $ttm=$row['total'];
-	  }
-	mysql_free_result($result2);
-	mysql_close($link); ?></td>
-<td><?php include ('connect.php');
- $query3 = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='4' and tpago='0' and fecha BETWEEN '$fch1' AND '$fch2' ";
-	  $result3 = mysql_query($query3);
-	  while($row = mysql_fetch_array($result3))
-	  {
-	 $tet=$row['total'];
-	  }
-	mysql_free_result($result3);
-	mysql_close($link); ?></td>
-<td><?php include ('connect.php');
- $query4 = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='4' and tpago='1' and fecha BETWEEN '$fch1' AND '$fch2' ";
-	  $result4 = mysql_query($query4);
-	  while($row = mysql_fetch_array($result4))
-	  {
-	 $ttt=$row['total'];
-	  }
-	mysql_free_result($result4);
-	mysql_close($link); ?></td>
-<td><?php include ('connect.php');
-$query5 = "SELECT SUM(subtotal) as total FROM pagos where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
-	  $result5 = mysql_query($query5);
-	  while($row = mysql_fetch_array($result5))
-	  {
-	 $tsm=$row['total'];
-	  }
-	mysql_free_result($result5);
-	mysql_close($link); ?></td>
-<td><?php include ('connect.php');
-$query6 = "SELECT SUM(subtotal) as total FROM pagos where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
-	  $result6 = mysql_query($query6);
-	  while($row = mysql_fetch_array($result6))
-	  {
-	 $tst=$row['total'];
-	  }
-	mysql_free_result($result6);
-	mysql_close($link); ?></td>
-</tr>
-</tbody>
-</table>
-
-
-
 <?php
 $NombreBD = "pvbiogym";
 $Servidor = "localhost";
@@ -261,10 +182,9 @@ Salidas en efectivo. Tunro Mañana.
 <TABLE BORDER=1 align="center" CELLPADDING=1 CELLSPACING=1>
  <thead>
  <tr>
- <th>ID</th>
- <th>Nombre</th>
+<th>Concepto</th>
  <th>Cantidad</th>
- <th>Importe</th>
+ <th>Fecha</th>
  </tr>
  </thead>
  <tbody>
@@ -298,10 +218,9 @@ Salidas en efectivo. Tunro Tarde.
 <TABLE BORDER=1 align="center" CELLPADDING=1 CELLSPACING=1>
  <thead>
  <tr>
- <th>ID</th>
- <th>Nombre</th>
+ <th>Concepto</th>
  <th>Cantidad</th>
- <th>Importe</th>
+ <th>Fecha</th>
  </tr>
  </thead>
  <tbody>

@@ -6,7 +6,7 @@ date_default_timezone_set('mexico/general');
 header("Content-Type: application/vnd.ms-excel");
 header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-header("content-disposition: attachment;filename=ListadoSocios.xls");
+header("content-disposition: attachment;filename=ListadoSociosActivos".date("d-m-y").".xls");
 ?>
 <HTML LANG="es">
 <TITLE>::. Exportacion de Datos .::</TITLE>
@@ -24,7 +24,7 @@ $sql = "SELECT socios.id_socio as id, socios.nombre as nombre,socios.ap as apell
 
 ?>
 <center>
-<img src="../images/logo.png" width="333" height="64">
+<img src="pages/logo.png" width="333" height="64">
 </center>
 <br>
 <Center><h3>Listado de Socios</h3></Center>
@@ -40,7 +40,7 @@ $sql = "SELECT socios.id_socio as id, socios.nombre as nombre,socios.ap as apell
 
  <tbody>
   <?php
-	include ('../connect.php');
+	include ('connect.php');
                                         
 	$query = "SELECT socios.id_socio as id, socios.nombre as nombre,socios.ap as apellido,socios.membresia as membre,socios.telefono as tel, acceso.ultimopago as ultimo,acceso.vence as vence FROM acceso inner join socios on socios.id_socio=acceso.id_socio where acceso.status=1";
  	$result = mysql_query($query);

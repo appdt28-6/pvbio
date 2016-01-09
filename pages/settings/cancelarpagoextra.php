@@ -5,14 +5,10 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-
 } /* Y cerramos el else */ 
 echo "</div>";
 date_default_timezone_set('mexico/general');
-$mes=date("m");
-$gasto=$_GET['id'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -196,7 +192,7 @@ $gasto=$_GET['id'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Programacion de Gastos Fijos</h1>
+                <h1 class="page-header">Detalles de venta</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -205,45 +201,28 @@ $gasto=$_GET['id'];
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Listado de gastos
+                            Cancelacion de Pagos Extra
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                           <form action="#" method="POST" >
-                            <fieldset>
-                       <?php 
-                        include('connect.php');
-						$gasto=$_GET['id'];
-						$fecha=$_POST['fecha'];
-						$concept=$_POST['concept'];
-						$importe=$_POST['importe'];
-						$pago=$_POST['pago'];
-						
-					$sql = mysql_query("UPDATE gastos_fijos SET fecha='$fecha',concepto='$concept',importe='$importe',formapago='$pago' where id_gasto='$gasto'");
-					if(!$sql){
-										 
-						echo "<div class=\"alert alert-danger\">";
-                        echo "Tenemos un problema con tu solicitud<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}else{
-						
-						echo "<div class=\"alert alert-success\">";
-                        echo "Configuracion guardada con exito<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}
-							?> 
-                                <!--<div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Recordar
-                                    </label>
-                                </div>-->
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="programacionfijos.php" class="tn btn-lg btn-warning btn-block">Salir</a>
-                               
                                 
-                            </fieldset>
-                        </form>
+                                       
+                                        
+                                          <?php
+										$id=$_GET['id'];
+                                        include ('connect.php');                                  
+                                        $sql = mysql_query("DELETE FROM pvbiogym.pagosextras WHERE id_pago='$id'");
+if(! $sql )
+{
+  die('<div class="alert alert-danger">No pudimos cancelar el pago<a class="alert-link" href="#"></a></div>' . mysql_error());
+}
+echo "<div class=\"alert alert-success\">Pago Cancelado<a class=\"alert-link\" href=\"pagosextra.php\"> Salir</a></div>";
+mysql_close();
+?>
+                                        
+                                        
+                                  
                             </div>
                             <!-- /.table-responsive -->
                            
@@ -262,20 +241,20 @@ $gasto=$_GET['id'];
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../../dist/js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -285,11 +264,7 @@ $gasto=$_GET['id'];
         });
     });
     </script>
-<script>
-function myFunction() {
-    window.print();
-}
-</script>
+
 </body>
 
 </html>

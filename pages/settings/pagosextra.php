@@ -5,14 +5,9 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-
 } /* Y cerramos el else */ 
-echo "</div>";
-date_default_timezone_set('mexico/general');
-$mes=date("m");
-$gasto=$_GET['id'];
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -196,100 +191,91 @@ $gasto=$_GET['id'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Programacion de Gastos Fijos</h1>
+                    <h1 class="page-header">Pagos Extra</h1>
+                    <p align="right">
+                           <a class="btn btn-info" href="infopagoextra.php">Generar Reporte</a>
+                            </p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
+            <div class="panel panel-default">
                         <div class="panel-heading">
-                           Listado de gastos
+                           Pagos Extra Generados || 
+                           <a href="regpagoextra.php">Nuevo</a>
+                          
+                        
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                           <form action="#" method="POST" >
-                            <fieldset>
-                       <?php 
-                        include('connect.php');
-						$gasto=$_GET['id'];
-						$fecha=$_POST['fecha'];
-						$concept=$_POST['concept'];
-						$importe=$_POST['importe'];
-						$pago=$_POST['pago'];
-						
-					$sql = mysql_query("UPDATE gastos_fijos SET fecha='$fecha',concepto='$concept',importe='$importe',formapago='$pago' where id_gasto='$gasto'");
-					if(!$sql){
-										 
-						echo "<div class=\"alert alert-danger\">";
-                        echo "Tenemos un problema con tu solicitud<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}else{
-						
-						echo "<div class=\"alert alert-success\">";
-                        echo "Configuracion guardada con exito<a class=\"alert-link\" href=\"#\"></a>";
-                        echo "</div>";
-					}
-							?> 
-                                <!--<div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Recordar
-                                    </label>
-                                </div>-->
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="programacionfijos.php" class="tn btn-lg btn-warning btn-block">Salir</a>
-                               
-                                
-                            </fieldset>
-                        </form>
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                        	 <th>Id Pago</th>
+                                            <th>Concepto</th>
+                                            <th>Cantidad</th>
+                                            <th>Fecha</th>
+                                            <th>Tipo de Transacción</th>
+                                            <th>Descripcion</th>
+                                            <th>Cancelar</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+										date_default_timezone_set('mexico/general');
+                                    $fch1=date("Y-m-d")." 00:00:00";
+                                    $fch2=date("Y-m-d")." 23:59:59";
+					   include 'database.php';
+					   $pdo = Database::connect();
+					   $sql = "SELECT * FROM pagosextras where fecha BETWEEN '$fch1' AND '$fch2' ORDER BY 'tipo' ASC";
+					   
+					  
+	 				   foreach ($pdo->query($sql) as $row) {
+						   		echo '<tr>';
+								 	echo '<td>'. $row['id_pago'] . '</td>';
+							   	echo '<td>'. $row['concepto'] . '</td>';
+							   	echo '<td>'. $row['cantidad'] . '</td>';
+							   	echo '<td>'. $row['fecha'] . '</td>';
+									echo '<td>'. $row['tipo'] . '</td>';
+										echo '<td>'. $row['descripcion'] . '</td>';
+								echo "<td class=\"center\"><a href=\"cancelarpagoextra.php?id=".$row['id_pago']."\">Cancelar</a></td>";
+							   	echo '</tr>';
+					   }
+					   Database::disconnect();
+					  ?>
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- /.table-responsive -->
                            
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
            
-        </div>
+</div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="../../bower_components/raphael/raphael-min.js"></script>
+    <script src="../../bower_components/morrisjs/morris.min.js"></script>
+    <script src=../"../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../../dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
-<script>
-function myFunction() {
-    window.print();
-}
-</script>
 </body>
 
 </html>
