@@ -5,7 +5,6 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-$ticket=$_GET['ticket'];
 } /* Y cerramos el else */ 
 echo "</div>";
 date_default_timezone_set('mexico/general');
@@ -189,74 +188,80 @@ date_default_timezone_set('mexico/general');
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
-        <div id="page-wrapper">
+        
+      <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Ventas del dia <?php echo date("d-m-Y");?></h1>
+                <h1 class="page-header">Reporte Pagos Extra</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
+            <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Listado de productos vendidos
-                        </div>
+                        <div class="panel-heading">Reporte Pagos Extra</div>
+                     
+                        <form method="post" action="infopagoextrareport.php">
+                        <input type="date" name="fch1">
+                        <input type="date" name="fch2">
+                     
+						
+                        <input type="submit" value="Ver Reporte">
+                        </form>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Venta</th>
-                                            <th>Producto</th>
+                                            <th>Id</th>
+                                            <th>Concepto</th>
                                             <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Importe</th>
-                                            <th>Accion</th>
+                                            <th>Fecha</th>
+                                            <th>Tipo </th>
+                                            <th>Descripci&oacute;n</th>
+                                           <!-- <th>Retardo</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         include ('../connect.php');
                                         date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT ventasticket.idVenta as idVenta,productos.descripcion as nombre,ventasticket.cantidad as cantidad,ventasticket.presioUnitario as precio,ventasticket.importe as importe,ventasticket.idTicket FROM ventasticket inner join productos on ventasticket.idProducto=productos.idProducto WHERE ventasticket.idTicket='$ticket'";
+                                  		$fch1= date("Y-m-d")." 00:00:00";
+                                 		 $fch2= date("Y-m-d")." 23:59:59";
+                                         $query = "SELECT * FROM pagosextras where fecha BETWEEN '$fch1' AND '$fch2' ORDER BY 'tipo' ASC";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
                                   {
                                    echo "<tr class=\"odd gradeX\">";
-                                            echo "<td>".$row['idVenta']."</td>";
-                                            echo "<td class=\"center\">".$row['nombre']."</td>";
-											 echo "<td class=\"center\">".$row['cantidad']."</td>";
-											  echo "<td class=\"center\">".$row['precio']."</td>";
-											   echo "<td class=\"center\">".$row['importe']."</td>";
-                                              echo "<td class=\"center\"><a href=\"cancelarventa.php?venta=".$row['idVenta']." \">Cancelar Concepto</a></td>";
+                                            echo "<td>".$row['id_pago']."</td>";
+                                            echo "<td>".$row['concepto']."</td>";
+											 echo "<td>".$row['cantidad']."</td>";
+											  echo "<td>".$row['fecha']."</td>";
+											  echo "<td>".$row['descripcion']."</td>";
+											  echo "<td>".$row['tipo']."</td>";
+                                   
                                         echo "</tr>";
                                   }
                                         mysql_free_result($result);
                                     mysql_close($link);
-
-                                        ?>
+									   ?>
                                         
                                     </tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
-                            <div class="well">
-                                
-                                <a class="btn btn-default btn-lg btn-block" href="cancelarticket.php?ticket=<?php echo $ticket; ?>" target="_self">Cancelar Ticket</a>
-                            </div>
+                           
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
+           
+                  
+               
+            <div class="well">
+                                
            
         </div>
         <!-- /#page-wrapper -->
@@ -265,20 +270,20 @@ date_default_timezone_set('mexico/general');
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../../dist/js/sb-admin-2.js"></script>
+    <script src="../dist/js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -290,5 +295,7 @@ date_default_timezone_set('mexico/general');
     </script>
 
 </body>
+
+</html>
 
 </html>

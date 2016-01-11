@@ -5,11 +5,52 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-$ticket=$_GET['ticket'];
 } /* Y cerramos el else */ 
-echo "</div>";
-date_default_timezone_set('mexico/general');
+
 ?>
+<?php 
+	
+	require 'database.php';
+
+	if ( !empty($_POST)) {
+		// keep track validation errors
+		$conceptoError = null;
+		$importeError = null;
+		$tipoError = null;
+		$descripcionError = null;
+		// keep track post values
+		$concepto = $_POST['concepto'];
+		$importe = $_POST['importe'];
+		$tipo= $_POST['tipo'];
+		$descripcion=$_POST['descripcion'];
+		
+		
+		// validate input
+		$valid = true;
+		if (empty($concepto)) {
+			$conceptoError = 'Please enter Concepto';
+			$valid = false;
+		}
+		
+		if (empty($importe)) {
+			$importeError = 'Please enter Importe';
+			$valid = false;
+		}
+		
+		// insert data
+		if ($valid) {
+			$pdo = Database::connect();
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql = "INSERT INTO pagosextras (concepto,cantidad,tipo,descripcion) values(?,?,?,?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($concepto,$importe,$tipo,$descripcion));
+			
+			Database::disconnect();
+			header("Location: pagosextra.php");
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -193,72 +234,80 @@ date_default_timezone_set('mexico/general');
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Ventas del dia <?php echo date("d-m-Y");?></h1>
+                    <h1 class="page-header">Pagos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Listado de productos vendidos
-                        </div>
+            <div class="panel panel-default">
+                       
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Venta</th>
-                                            <th>Producto</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Importe</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        include ('../connect.php');
-                                        date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT ventasticket.idVenta as idVenta,productos.descripcion as nombre,ventasticket.cantidad as cantidad,ventasticket.presioUnitario as precio,ventasticket.importe as importe,ventasticket.idTicket FROM ventasticket inner join productos on ventasticket.idProducto=productos.idProducto WHERE ventasticket.idTicket='$ticket'";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                   echo "<tr class=\"odd gradeX\">";
-                                            echo "<td>".$row['idVenta']."</td>";
-                                            echo "<td class=\"center\">".$row['nombre']."</td>";
-											 echo "<td class=\"center\">".$row['cantidad']."</td>";
-											  echo "<td class=\"center\">".$row['precio']."</td>";
-											   echo "<td class=\"center\">".$row['importe']."</td>";
-                                              echo "<td class=\"center\"><a href=\"cancelarventa.php?venta=".$row['idVenta']." \">Cancelar Concepto</a></td>";
-                                        echo "</tr>";
-                                  }
-                                        mysql_free_result($result);
-                                    mysql_close($link);
+                           
+                           <form class="form-horizontal" action="regpagoextra.php" method="post">
+                           
+                           
+                           
+					  <div class="control-group <?php echo !empty($conceptoError)?'error':'';?>">
+					    <label class="control-label">Concepto</label>
+					    <div class="controls">
+					      	<input name="concepto" type="text"  placeholder="Concepto" value="<?php echo !empty($concepto)?$concepto:'';?>">
+					      	<?php if (!empty($conceptoError)): ?>
+					      		<span class="help-inline"><?php echo $conceptoError;?></span>
+					      	<?php endif; ?>
+					    </div>
+					  </div>
+                      
+					  <div class="control-group <?php echo !empty($importeError)?'error':'';?>">
+					    <label class="control-label">Importe</label>
+					    <div class="controls">
+					      	<input name="importe" type="text" placeholder="Importe" value="<?php echo !empty($importe)?$importe:'';?>">
+					      	<?php if (!empty($importeError)): ?>
+					      		<span class="help-inline"><?php echo $importeError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+                      
+                      <div class="control-group <?php echo !empty($tipoError)?'error':'';?>">
+					    <label class="control-label">Tipo de Transacción</label>
+					    <div class="controls">
+                           <select name="tipo"> 
+								<option value="Ingreso">Ingreso</option> 
+								<option value="Egreso">Egreso</option>
+                                 <?php echo !empty($tipo)?$tipo:'';?>
+                                </select>
+                             
 
-                                        ?>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                            <div class="well">
-                                
-                                <a class="btn btn-default btn-lg btn-block" href="cancelarticket.php?ticket=<?php echo $ticket; ?>" target="_self">Cancelar Ticket</a>
-                            </div>
+					      	<?php if (!empty($tipoError)): ?>
+					      		<span class="help-inline"><?php echo $tipoError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+                      
+                      
+                      
+					  <div class="control-group <?php echo !empty($descripcionError)?'error':'';?>">
+					    <label class="control-label">Descripci&oacute;n</label>
+					    <div class="controls">
+					      	<input name="descripcion" type="text" placeholder="Descripci&oacute;n" value="<?php echo !empty($importe)?$importe:'';?>">
+					      	<?php if (!empty($descripcionError)): ?>
+					      		<span class="help-inline"><?php echo $descripcionError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+                      
+                      
+					 
+					  <div class="form-actions">
+						  <button type="submit" class="btn btn-success">Generar</button>
+						  <a class="btn btn-info" href="pagosextra.php">Regresar</a>
+						</div>
+					</form>
+                           
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
            
-        </div>
+</div>
         <!-- /#page-wrapper -->
 
     </div>
@@ -273,21 +322,13 @@ date_default_timezone_set('mexico/general');
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="../../bower_components/raphael/raphael-min.js"></script>
+    <script src="../../bower_components/morrisjs/morris.min.js"></script>
+    <script src=../"../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dist/js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
 
 </body>
 

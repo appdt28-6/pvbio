@@ -8,6 +8,7 @@ $e=$_SESSION['inicia'];
 } /* Y cerramos el else */ 
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,7 +149,7 @@ $e=$_SESSION['inicia'];
                             <!-- /.nav-second-level -->
                         </li>
                        <!-- <li>
-                             <a href="#"><i class="fa fa-list-alt fa-fw"></i>ProgramaciĂłn<span class="fa arrow"></span></a>
+                             <a href="#"><i class="fa fa-list-alt fa-fw"></i>Programación<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="programacionfijos.php">Fijos</a>
@@ -166,10 +167,16 @@ $e=$_SESSION['inicia'];
                              <a href="/pvbio/pages/settings/tutorial/otrostickets.php?id=2&&f1=2015-10-10" target="_blank"><i class="fa fa-arrow-circle-left"></i>Recuperar Ticket</a>
                             <!-- /.nav-second-level -->
                         </li>
-                        
                         <li>
-                             <a href="pagos.php" target="_blank"><i class="fa fa-list-alt fa-fw"></i>Generar Pagos</a>
+                            <a href="#"><i class="fa fa-list-alt fa-fw"></i>Generar Pagos<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                        <li>
+                             <a href="pagos.php">Generar Pagos</a>
                             <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                        <a href="pagosextra.php">Pago Extra/Salida Extra </a>
+                        </ul>
                         </li>
                           <li>
                              <a href="clases.php"><i class="fa fa-warning fa-fw"></i>Activar Clases</a>
@@ -185,22 +192,42 @@ $e=$_SESSION['inicia'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Clases Zumba</h1>
+                    <h1 class="page-header">Información</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">Info Si update clasezumba set status=0
-            Muestra clases activadas
-            Si no
-            Ubo un error en tu solicitud.
-            </div>
-           
-        </div>
-        <!-- /#page-wrapper -->
+   
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                 
+                <div class="login-panel panel panel-default">
 
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Activaci&oacute;n de Clases</h3>
+                    </div>
+                    <div class="panel-body">
+                      <fieldset>
+                       <?php 
+                        include('connect.php');
+					
+						
+						echo "<div align=center class=\"alert alert-warning\">";
+                        echo "¿Confirma Activación de Clases?";
+                        echo "</div>";
+					
+							?>    
+                    </div>
+                     <div class="well">
+                                
+                               <a class="btn btn-default btn-lg btn-block" href="activacionclases.php">Confirmar</a>
+                            
+                            </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /#wrapper -->
 
 </body>
 

@@ -5,11 +5,10 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
-$ticket=$_GET['ticket'];
 } /* Y cerramos el else */ 
-echo "</div>";
-date_default_timezone_set('mexico/general');
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -193,101 +192,53 @@ date_default_timezone_set('mexico/general');
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h1 class="page-header">Ventas del dia <?php echo date("d-m-Y");?></h1>
+                    <h1 class="page-header">Clases Zumba</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Listado de productos vendidos
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Venta</th>
-                                            <th>Producto</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Importe</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        include ('../connect.php');
-                                        date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
-                                  $query = "SELECT ventasticket.idVenta as idVenta,productos.descripcion as nombre,ventasticket.cantidad as cantidad,ventasticket.presioUnitario as precio,ventasticket.importe as importe,ventasticket.idTicket FROM ventasticket inner join productos on ventasticket.idProducto=productos.idProducto WHERE ventasticket.idTicket='$ticket'";
-                                  $result = mysql_query($query);
-                                  while($row = mysql_fetch_array($result))
-                                  {
-                                   echo "<tr class=\"odd gradeX\">";
-                                            echo "<td>".$row['idVenta']."</td>";
-                                            echo "<td class=\"center\">".$row['nombre']."</td>";
-											 echo "<td class=\"center\">".$row['cantidad']."</td>";
-											  echo "<td class=\"center\">".$row['precio']."</td>";
-											   echo "<td class=\"center\">".$row['importe']."</td>";
-                                              echo "<td class=\"center\"><a href=\"cancelarventa.php?venta=".$row['idVenta']." \">Cancelar Concepto</a></td>";
-                                        echo "</tr>";
-                                  }
-                                        mysql_free_result($result);
-                                    mysql_close($link);
+             <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                 
+                <div class="login-panel panel panel-default">
 
-                                        ?>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                            <div class="well">
-                                
-                                <a class="btn btn-default btn-lg btn-block" href="cancelarticket.php?ticket=<?php echo $ticket; ?>" target="_self">Cancelar Ticket</a>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Activaci&oacute;n de Clases</h3>
                     </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
+                    <div class="panel-body">
+             <fieldset>
+            <?php
+			
+		include ('connect.php');
+            $sql = mysql_query("UPDATE pvbiogym.lugareszumba SET status='0' where status='1'");
+		
+            if(!$sql){
+										 
+						echo "<div align=center class=\"alert alert-danger\">";
+                        echo "Tenemos un problema con tu solicitud<a class=\"alert-link\" href=\"#\"></a>";
+                        echo "</div>";
+						
+						
+					}else{
+						
+						echo "<div align=center class=\"alert alert-success\">";
+                        echo "Clases Activadas con exito<a class=\"alert-link\" href=\"#\"></a>";
+                        echo "</div>";
+					}
+			?>
+			
+			</div>
+            <div class="well">
+                                
+                               <a class="btn btn-default btn-lg btn-block" href="index.php">Salir</a>
+                            </div>
            
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../../dist/js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
 
 </body>
 
