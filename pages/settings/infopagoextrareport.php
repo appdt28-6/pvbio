@@ -259,7 +259,7 @@ date_default_timezone_set('mexico/general');
                                <?php
                                        include ('../connect.php');
                               
-                              $query1 = "SELECT tipo, SUM(cantidad) FROM pagosextras  where fecha BETWEEN '$fch1' AND '$fch2'  GROUP BY tipo"; 
+                              $query1 = "SELECT tipo, SUM(cantidad) FROM pagosextras  where fecha BETWEEN '$fch1' AND '$fch2'  GROUP BY tipo ORDER BY  `pagosextras`.`tipo` ASC"; 
 	 
 							$result1 = mysql_query($query1) or die(mysql_error());
 
@@ -276,7 +276,7 @@ date_default_timezone_set('mexico/general');
             <div class="well">
                                 <Center><h4>Reporte de Pagos Extra</h4></Center>
                                
-                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="javascript:print()">Imprimir</a>
+                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="tutorial/pdfpagosextra.php">Imprimir</a>
                             </div>
            
         </div>

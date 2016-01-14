@@ -11,6 +11,7 @@ require('../fpdf.php');
 $pdf =& new FPDF('P', 'mm', array(80, 297));
 $pdf->AddPage();  
 $pdf->SetFont('Arial','',8);
+$pdf->Image("../images/logo.png","25","10","30","10");
 $pdf->Ln();
 $pdf->Cell(4,1,'              BIOGYM GEOVILLAS');
 $pdf->Ln();

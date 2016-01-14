@@ -8,56 +8,8 @@ $e=$_SESSION['inicia'];
 } /* Y cerramos el else */ 
 
 ?>
-<?php 
-	
-	require 'database.php';
 
-	if ( !empty($_POST)) {
-		// keep track validation errors
-		$conceptoError = null;
-		$importeError = null;
-		$tipoError = null;
-		$descripcionError = null;
-		// keep track post values
-		$concepto = $_POST['concepto'];
-		$importe = $_POST['importe'];
-		$tipo= $_POST['tipo'];
-		$descripcion=$_POST['descripcion'];
-		
-		
-		// validate input
-		$valid = true;
-		if (empty($concepto)) {
-			$conceptoError = 'Please enter Concepto';
-			$valid = false;
-		}
-		
-		if (empty($importe)) {
-			$importeError = 'Please enter Importe';
-			$valid = false;
-		}
-		
-		// insert data
-		if ($valid) {
-			$pdo = Database::connect();
-			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "INSERT INTO pagosextras (concepto,cantidad,tipo,descripcion) values(?,?,?,?)";
-			$q = $pdo->prepare($sql);
-			$q->execute(array($concepto,$importe,$tipo,$descripcion));
-			if ($tipo=="Egreso"){
-			header("Location: pagosextraticket.php");
-				
-			}
-			else {
-			header("Location: pagosextra.php");
-			}
-				Database::disconnect();
-			
-		}
-	}
-?>
-
-<!DOCTYPE html>r
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -240,102 +192,44 @@ $e=$_SESSION['inicia'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Pagos</h1>
+                    <h1 class="page-header">Información</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="panel panel-default">
-                       
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                           
-                           <form class="form-horizontal" action="regpagoextra.php" method="post">
-                           
-                           
-                           
-					  <div class="control-group <?php echo !empty($conceptoError)?'error':'';?>">
-					    <label class="control-label">Concepto</label>
-					    <div class="controls">
-					      	<input name="concepto" type="text"  placeholder="Concepto" value="<?php echo !empty($concepto)?$concepto:'';?>">
-					      	<?php if (!empty($conceptoError)): ?>
-					      		<span class="help-inline"><?php echo $conceptoError;?></span>
-					      	<?php endif; ?>
-					    </div>
-					  </div>
-                      
-					  <div class="control-group <?php echo !empty($importeError)?'error':'';?>">
-					    <label class="control-label">Importe</label>
-					    <div class="controls">
-					      	<input name="importe" type="text" placeholder="Importe" value="<?php echo !empty($importe)?$importe:'';?>">
-					      	<?php if (!empty($importeError)): ?>
-					      		<span class="help-inline"><?php echo $importeError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-                      
-                      <div class="control-group <?php echo !empty($tipoError)?'error':'';?>">
-					    <label class="control-label">Tipo de Transacción</label>
-					    <div class="controls">
-                           <select name="tipo"> 
-								<option value="Ingreso">Ingreso</option> 
-								<option value="Egreso">Egreso</option>
-                                 <?php echo !empty($tipo)?$tipo:'';?>
-                                </select>
-                             
+            <!-- /.row -->
+   
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                 
+                <div class="login-panel panel panel-default">
 
-					      	<?php if (!empty($tipoError)): ?>
-					      		<span class="help-inline"><?php echo $tipoError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-                      
-                      
-                      
-					  <div class="control-group <?php echo !empty($descripcionError)?'error':'';?>">
-					    <label class="control-label">Descripci&oacute;n</label>
-					    <div class="controls">
-					      	<input name="descripcion" type="text" placeholder="Descripci&oacute;n" value="<?php echo !empty($importe)?$importe:'';?>">
-					      	<?php if (!empty($descripcionError)): ?>
-					      		<span class="help-inline"><?php echo $descripcionError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-                      
-                      
-					 
-					  <div class="form-actions">
-						  <button type="submit" class="btn btn-success" href="pagosextraticket.php">Generar</button>
-						  <a class="btn btn-info" href="pagosextra.php">Regresar</a>
-						</div>
-					</form>
-                           
-                        </div>
-                        <!-- /.panel-body -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Imprimir</h3>
                     </div>
-           
-</div>
-        <!-- /#page-wrapper -->
-
+                    <div class="panel-body">
+                      <fieldset>
+                       <?php 
+                        include('connect.php');
+					
+						
+						echo "<div align=center class=\"alert alert-warning\">";
+                        echo "¿Desea imprimir esta transacci&oacute;n?";
+                        echo "</div>";
+					
+							?>    
+                    </div>
+                     <div class="well">
+                                
+                               <a class="btn btn-default btn-lg btn-block" href="tutorial/pextrapdf.php" target="_blank">Imprimir</a>
+                                <a class="btn btn-default btn-lg btn-block" href="pagosextra.php">Salir</a>
+                            
+                            </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../../bower_components/raphael/raphael-min.js"></script>
-    <script src="../../bower_components/morrisjs/morris.min.js"></script>
-    <script src=../"../js/morris-data.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../../dist/js/sb-admin-2.js"></script>
-
-</body>
+</body>|
 
 </html>
