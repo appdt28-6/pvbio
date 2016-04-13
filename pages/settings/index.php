@@ -5,6 +5,11 @@ if(!isset($_SESSION['inicia'])){
 header("location: index.html?**sin-acceso**");
 } else { 
 $e=$_SESSION['inicia'];
+ date_default_timezone_set('mexico/general');
+$fch1=date("Y-m-d")." 00:00:00";
+$fch2=date("Y-m-d")." 23:59:59";
+$fch1m=date("Y-m")."-01"." 00:00:00";
+$fch2m=date("Y-m")."-31"." 23:59:59";
 } /* Y cerramos el else */ 
 
 ?>
@@ -191,7 +196,7 @@ $e=$_SESSION['inicia'];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Información</h1>
+                    <h1 class="page-header">Infomación</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -205,12 +210,8 @@ $e=$_SESSION['inicia'];
                                     <i class="fa fa-money fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-
                                     <?php 
                                     include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
                                   $query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
@@ -244,9 +245,6 @@ $e=$_SESSION['inicia'];
                                 <div class="col-xs-9 text-right">
                                  <?php 
                                     include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
                                    $query = "SELECT SUM(cantidad) as total FROM pagos where id_usuario='5' and fecha BETWEEN '$fch1' AND '$fch2' ";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
@@ -280,9 +278,6 @@ $e=$_SESSION['inicia'];
                                 <div class="col-xs-9 text-right">
                                     <?php 
                                     include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
                                   $query = "SELECT SUM(subtotal) as total FROM tickets where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
@@ -316,9 +311,6 @@ $e=$_SESSION['inicia'];
                                 <div class="col-xs-9 text-right">
                                     <?php 
                                     include('../connect.php');
-                                    date_default_timezone_set('mexico/general');
-                                    $fch1=date("Y-m-d")." 00:00:00";
-                                    $fch2=date("Y-m-d")." 23:59:59";
                                    $query = "SELECT SUM(cantidad) as total FROM pagos where id_usuario='4' and fecha BETWEEN '$fch1' AND '$fch2' ";
                                   $result = mysql_query($query);
                                   while($row = mysql_fetch_array($result))
@@ -343,8 +335,86 @@ $e=$_SESSION['inicia'];
                     </div>
                 </div>
             </div>
-           
+          <!--indicadores del mes-->
+         <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Acumulado del mes</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+          <br>
+           <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                               <div class="col-xs-3">
+                                    <i class="fa fa-inbox fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <?php 
+                                    include('../connect.php');
+                                  $query = "SELECT SUM(subtotal) as total FROM tickets where fecha BETWEEN '$fch1m' AND '$fch2m' ";
+                                  $result = mysql_query($query);
+                                  while($row = mysql_fetch_array($result))
+                                  {
+                                    echo "<div class=\"huge\">$",$row['total'],"</div>"; 
+                                    }
+                                     mysql_free_result($result);
+                                    mysql_close($link);
+
+                                    ?>
+                                    <div>Ventas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="allproductossold.php">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver detalles</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-download fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                 <?php 
+                                    include('../connect.php');
+                                   $query = "SELECT SUM(cantidad) as total FROM pagos where fecha BETWEEN '$fch1m' AND '$fch2m'";
+                                  $result = mysql_query($query);
+                                  while($row = mysql_fetch_array($result))
+                                  {
+                                    echo "<div class=\"huge\">$",$row['total'],"</div>"; 
+                                    }
+                                     mysql_free_result($result);
+                                    mysql_close($link);
+
+                                    ?>
+                                    <div>Salidas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<a href="allpaid.php">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver Detalles</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>-->
+                    </div>
+                </div>
+          		
         </div>
+            <!-- /.row -->
+            
+      
+      </div>
         <!-- /#page-wrapper -->
 
     </div>
